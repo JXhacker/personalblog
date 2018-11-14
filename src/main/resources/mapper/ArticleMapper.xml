@@ -16,4 +16,15 @@
     <insert id="insertArticle" parameterType="com.wanzhiwen.blog.entity.Article">
         insert into articles (title, type, content, add_time, author_name, author_portrait, cover) values (#{title},#{type},#{content},#{addTime},#{authorName},#{authorPortrait},#{cover});
     </insert>
+
+    <select id="getArticleById" parameterType="int" resultMap="ArticleMap">
+        select * from articles where id=#{id}
+    </select>
+
+    <select id="getArticlesByType" resultMap="ArticleMap">
+        select * from articles where type=#{type} order by add_time limit #{start},10
+    </select>
+    <select id="getArticlesByTypeNums" resultType="int">
+        select count(*) from articles where type=#{type}
+    </select>
 </mapper>

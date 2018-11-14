@@ -1,7 +1,10 @@
 package com.wanzhiwen.blog.dao;
 
 import com.wanzhiwen.blog.entity.Article;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * @author wanzhiwen
@@ -10,4 +13,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ArticleDao {
     void insertArticle(Article article);
+    Article getArticleById(int id);
+    List<Article> getArticlesByType(@Param("type") int type,@Param("start") int start);
+    int getArticlesByTypeNums(int type);
 }

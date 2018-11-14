@@ -22,9 +22,23 @@ public class ArticleController {
     ArticleService articleService;
 
     @RequestMapping("/insertArticle")
-    public Response insertArticle(HttpServletRequest request,@RequestBody Article article){
+    public Response insertArticle(HttpServletRequest request, @RequestBody Article article) {
         Response response;
-        response=articleService.insertArticle(request,article);
+        response = articleService.insertArticle(request, article);
+        return response;
+    }
+
+    @RequestMapping("/getArticleById")
+    public Response getArticleById(HttpServletRequest request) {
+        Response response;
+        response = articleService.getArticleById(request);
+        return response;
+    }
+
+    @RequestMapping("/getArticlesByType")
+    public Response getArticlesByType(HttpServletRequest request){
+        Response response;
+        response=articleService.getArticlesByType(request);
         return response;
     }
 }

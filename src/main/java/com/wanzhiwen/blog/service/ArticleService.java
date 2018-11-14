@@ -4,6 +4,7 @@ import com.wanzhiwen.blog.commons.Response;
 import com.wanzhiwen.blog.entity.Article;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author wanzhiwen
@@ -11,4 +12,6 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface ArticleService {
     Response insertArticle(HttpServletRequest request, Article article);
+    Response getArticleById(HttpServletRequest request);
+    Response getArticlesByType(HttpServletRequest request);
 }
