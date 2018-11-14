@@ -16,4 +16,6 @@ public interface ArticleDao {
     Article getArticleById(int id);
     List<Article> getArticlesByType(@Param("type") int type,@Param("start") int start);
     int getArticlesByTypeNums(int type);
+    void updateArticleById(Article article);
+    void addview(int articleId);
 }

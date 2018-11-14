@@ -6,6 +6,7 @@ import com.wanzhiwen.blog.entity.Article;
 import com.wanzhiwen.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import java.util.List;
  * @time 2018/11/14
  */
 @Service
+@Transactional
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
@@ -51,6 +53,7 @@ public class ArticleServiceImpl implements ArticleService {
         id = Integer.parseInt(request.getParameter("id"));
         try {
             articleDB = articleDao.getArticleById(id);
+            articleDao.addview(articleDB.getId());
         } catch (Exception e) {
             e.printStackTrace();
             return new Response(1, "数据库错误");
@@ -62,9 +65,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public Response getArticlesByType(HttpServletRequest request) {
-        int type, page, start,totalPages,totalArticles;
+        int type, page, start, totalPages, totalArticles;
         List<Article> articles;
-        HashMap map=new HashMap();
+        HashMap map = new HashMap();
         Response response = new Response();
         if (request.getParameter("type") == null) {
             return new Response(1, "参数错误");
@@ -78,22 +81,43 @@ public class ArticleServiceImpl implements ArticleService {
         start = (page - 1) * 10;
         try {
             articles = articleDao.getArticlesByType(type, start);
-            totalArticles=articleDao.getArticlesByTypeNums(type);
-            if (totalArticles%10==0){
-                totalPages=totalArticles/10;
-            }else {
-                totalPages=totalArticles/10+1;
+            totalArticles = articleDao.getArticlesByTypeNums(type);
+            if (totalArticles % 10 == 0) {
+                totalPages = totalArticles / 10;
+            } else {
+                totalPages = totalArticles / 10 + 1;
             }
         } catch (Exception e) {
             e.printStackTrace();
             return new Response(1, "数据库错误");
         }
-        map.put("totalPages",totalPages);
-        map.put("articles",articles);
+        map.put("totalPages", totalPages);
+        map.put("articles", articles);
         response.setStatus(1);
         response.setMsg("获取成功");
         response.setBody(map);
         return response;
+    }
+
+    public Response updateArticleById(HttpServletRequest request, Article article) {
+        Date date=new Date();
+        HttpSession session=request.getSession();
+        if (session.getAttribute("username")==null||session.getAttribute("portrait")==null){
+            return new Response(1,"未登录");
+        }
+        if (article.getId()==0){
+            return new Response(1,"未传入id");
+        }
+        article.setAddTime(date);
+        article.setAuthorName((String)session.getAttribute("username"));
+        article.setAuthorPortrait((String)session.getAttribute("portrait"));
+        try{
+            articleDao.updateArticleById(article);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Response(1,"数据库错误");
+        }
+        return new Response(0,"修改成功");
     }
 
 }

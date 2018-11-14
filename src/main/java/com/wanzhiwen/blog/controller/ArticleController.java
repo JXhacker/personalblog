@@ -41,4 +41,11 @@ public class ArticleController {
         response=articleService.getArticlesByType(request);
         return response;
     }
+
+    @RequestMapping("/updateArticleById")
+    public Response updateArticleById(HttpServletRequest request,@RequestBody Article article){
+        Response response;
+        response=articleService.updateArticleById(request,article);
+        return response;
+    }
 }
