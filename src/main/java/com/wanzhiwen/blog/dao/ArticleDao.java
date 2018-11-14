@@ -1,0 +1,13 @@
+package com.wanzhiwen.blog.dao;
+
+import com.wanzhiwen.blog.entity.Article;
+import org.springframework.stereotype.Repository;
+
+/**
+ * @author wanzhiwen
+ * @time 2018/11/14
+ */
+@Repository
+public interface ArticleDao {
+    void insertArticle(Article article);
+}

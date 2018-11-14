@@ -10,7 +10,6 @@ import sun.misc.BASE64Encoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.Null;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -39,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     public Response login(HttpServletRequest request, User user) {
         HttpSession session = request.getSession();
-        String username, password, newPassword;
+        String newPassword;
         User userDB;
         if (user.getPassword() == null || user.getUsername() == null) {
             return new Response(1, "参数不足");

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanzhiwen.blog.dao.ArticleDao">
+    <resultMap id="ArticleMap" type="com.wanzhiwen.blog.entity.Article">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="type" property="type"/>
+        <result column="content" property="content"/>
+        <result column="add_time" property="addTime"/>
+        <result column="views" property="views"/>
+        <result column="author_name" property="authorName"/>
+        <result column="author_portrait" property="authorPortrait"/>
+        <result column="cover" property="cover"/>
+    </resultMap>
+
+    <insert id="insertArticle" parameterType="com.wanzhiwen.blog.entity.Article">
+        insert into articles (title, type, content, add_time, author_name, author_portrait, cover) values (#{title},#{type},#{content},#{addTime},#{authorName},#{authorPortrait},#{cover});
+    </insert>
+</mapper>

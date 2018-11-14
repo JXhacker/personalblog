@@ -1,8 +1,8 @@
 package com.wanzhiwen.blog.controller;
 
 import com.wanzhiwen.blog.commons.Response;
-import com.wanzhiwen.blog.entity.User;
-import com.wanzhiwen.blog.service.UserService;
+import com.wanzhiwen.blog.entity.Article;
+import com.wanzhiwen.blog.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,15 +16,15 @@ import javax.servlet.http.HttpServletRequest;
  */
 
 @RestController
-public class UserController {
+public class ArticleController {
 
     @Autowired
-    UserService userService;
+    ArticleService articleService;
 
-    @RequestMapping("/login")
-    public Response login(HttpServletRequest request, @RequestBody User user){
+    @RequestMapping("/insertArticle")
+    public Response insertArticle(HttpServletRequest request,@RequestBody Article article){
         Response response;
-        response=userService.login(request,user);
+        response=articleService.insertArticle(request,article);
         return response;
     }
 }
