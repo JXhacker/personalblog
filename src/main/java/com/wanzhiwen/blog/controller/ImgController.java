@@ -27,4 +27,18 @@ public class ImgController {
         return response;
     }
 
+    @RequestMapping(value = "updateCarousel")
+    public Response updateCarousel(HttpServletRequest request) {
+        Response response;
+        response = imgService.updateCarousel(request);
+        return response;
+    }
+
+    @RequestMapping(value = "getCarousels")
+    public Response getCarousels() {
+        Response response;
+        response = imgService.getCarousels();
+        return response;
+    }
+
 }

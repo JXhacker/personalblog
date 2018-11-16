@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wanzhiwen.blog.dao.ImgDao">
-    
-    
+    <resultMap id="CarouselMap" type="com.wanzhiwen.blog.entity.Carousel">
+        <id column="id" property="id"/>
+        <result column="place_id" property="placeId"/>
+        <result column="location" property="location"/>
+    </resultMap>
+
     <insert id="addImg">
         insert into imgs (location,owner_name) values (#{location},#{ownerName});
     </insert>
-    
+    <update id="updateCarousel">
+        update carousel set location=#{location} where place_id=#{placeId}
+    </update>
+    <select id="getCarousels" resultMap="CarouselMap">
+        select id,place_id,location from  carousel order by place_id
+    </select>
+
 </mapper>

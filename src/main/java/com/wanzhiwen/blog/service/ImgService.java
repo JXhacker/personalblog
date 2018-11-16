@@ -11,4 +11,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 public interface ImgService {
     Response addImg(MultipartFile file, HttpServletRequest request);
+
+    Response updateCarousel(HttpServletRequest request);
+
+    Response getCarousels();
 }
