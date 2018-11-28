@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wanzhiwen.blog.dao.TimelineDao">
+    <resultMap id="TimelineMap" type="com.wanzhiwen.blog.entity.Timeline">
+        <id column="id" property="id"/>
+        <result column="time" property="time"/>
+        <result column="event" property="event"/>
+    </resultMap>
+
+    <insert id="addTimeline" parameterType="com.wanzhiwen.blog.entity.Timeline">
+        insert into timeline (time, event) values (#{time},#{event});
+    </insert>
+
+    <select id="getTimelineByStart" resultMap="TimelineMap">
+        select * from timeline order by time desc limit #{start},10
+    </select>
+    <select id="getTimelineByStartNums" resultType="integer">
+        select count(*) from timeline
+    </select>
+
+
+</mapper>
