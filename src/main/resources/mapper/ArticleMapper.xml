@@ -5,6 +5,7 @@
         <id column="id" property="id"/>
         <result column="title" property="title"/>
         <result column="type" property="type"/>
+        <result column="sub_type" property="subType"/>
         <result column="content" property="content"/>
         <result column="add_time" property="addTime"/>
         <result column="views" property="views"/>
@@ -14,7 +15,7 @@
     </resultMap>
 
     <insert id="insertArticle" parameterType="com.wanzhiwen.blog.entity.Article">
-        insert into articles (title, type, content, add_time, author_name, author_portrait, cover) values (#{title},#{type},#{content},#{addTime},#{authorName},#{authorPortrait},#{cover});
+        insert into articles (title, type,sub_type, content, add_time, author_name, author_portrait, cover) values (#{title},#{type},#{subType},#{content},#{addTime},#{authorName},#{authorPortrait},#{cover});
     </insert>
 
     <select id="getArticleById" parameterType="int" resultMap="ArticleMap">
@@ -22,10 +23,10 @@
     </select>
 
     <select id="getArticlesByType" resultMap="ArticleMap">
-        select * from articles where type=#{type} order by add_time limit #{start},10
+        select * from articles where type=#{type} and sub_type=#{subType} order by add_time limit #{start},10
     </select>
     <select id="getArticlesByTypeNums" resultType="int">
-        select count(*) from articles where type=#{type}
+        select count(*) from articles where type=#{type} and sub_type=#{subType}
     </select>
     <update id="updateArticleById" parameterType="com.wanzhiwen.blog.entity.Article">
         update articles set title=#{title},type=#{type},content=#{content},add_time=#{addTime},views=0,author_name=#{authorName},author_portrait=#{authorPortrait},cover=#{cover} where id=#{id}

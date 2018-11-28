@@ -10,6 +10,7 @@ public class Article {
     private int id;
     private String title;
     private int type;
+    private int subType;
     private String content;
     private Date addTime;
     private int views;
@@ -42,6 +43,14 @@ public class Article {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public int getSubType() {
+        return subType;
+    }
+
+    public void setSubType(int subType) {
+        this.subType = subType;
     }
 
     public String getContent() {

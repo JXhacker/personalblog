@@ -65,14 +65,15 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public Response getArticlesByType(HttpServletRequest request) {
-        int type, page, start, totalPages, totalArticles;
+        int type, subType, page, start, totalPages, totalArticles;
         List<Article> articles;
         HashMap map = new HashMap();
         Response response = new Response();
-        if (request.getParameter("type") == null) {
+        if (request.getParameter("type") == null || request.getParameter("subType") == null) {
             return new Response(1, "参数错误");
         }
         type = Integer.parseInt(request.getParameter("type"));
+        subType = Integer.parseInt(request.getParameter("subType"));
         if (request.getParameter("page") == null) {
             page = 1;
         } else {
@@ -80,8 +81,8 @@ public class ArticleServiceImpl implements ArticleService {
         }
         start = (page - 1) * 10;
         try {
-            articles = articleDao.getArticlesByType(type, start);
-            totalArticles = articleDao.getArticlesByTypeNums(type);
+            articles = articleDao.getArticlesByType(type,subType, start);
+            totalArticles = articleDao.getArticlesByTypeNums(type,subType);
             if (totalArticles % 10 == 0) {
                 totalPages = totalArticles / 10;
             } else {
@@ -100,24 +101,24 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     public Response updateArticleById(HttpServletRequest request, Article article) {
-        Date date=new Date();
-        HttpSession session=request.getSession();
-        if (session.getAttribute("username")==null||session.getAttribute("portrait")==null){
-            return new Response(1,"未登录");
+        Date date = new Date();
+        HttpSession session = request.getSession();
+        if (session.getAttribute("username") == null || session.getAttribute("portrait") == null) {
+            return new Response(1, "未登录");
         }
-        if (article.getId()==0){
-            return new Response(1,"未传入id");
+        if (article.getId() == 0) {
+            return new Response(1, "未传入id");
         }
         article.setAddTime(date);
-        article.setAuthorName((String)session.getAttribute("username"));
-        article.setAuthorPortrait((String)session.getAttribute("portrait"));
-        try{
+        article.setAuthorName((String) session.getAttribute("username"));
+        article.setAuthorPortrait((String) session.getAttribute("portrait"));
+        try {
             articleDao.updateArticleById(article);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return new Response(1,"数据库错误");
+            return new Response(1, "数据库错误");
         }
-        return new Response(0,"修改成功");
+        return new Response(0, "修改成功");
     }
 
 }

@@ -13,9 +13,14 @@ import java.util.List;
 @Repository
 public interface ArticleDao {
     void insertArticle(Article article);
+
     Article getArticleById(int id);
-    List<Article> getArticlesByType(@Param("type") int type,@Param("start") int start);
-    int getArticlesByTypeNums(int type);
+
+    List<Article> getArticlesByType(@Param("type") int type, @Param("subType") int subType, @Param("start") int start);
+
+    int getArticlesByTypeNums(@Param("type") int type, @Param("subType") int subType);
+
     void updateArticleById(Article article);
+
     void addview(int articleId);
 }
