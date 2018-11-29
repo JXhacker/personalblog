@@ -3,12 +3,8 @@ package com.wanzhiwen.blog.controller;
 import com.wanzhiwen.blog.commons.Response;
 import com.wanzhiwen.blog.entity.Timeline;
 import com.wanzhiwen.blog.service.TimelineService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,21 +19,18 @@ public class TimelineController {
     @Autowired
     TimelineService timelineService;
 
-    private Logger logger = LoggerFactory.getLogger(getClass());
 
 
-    @RequestMapping("/addTimeline")
+    @PostMapping("/addTimeline")
     Response addTimeline(HttpServletRequest request, @RequestBody Timeline timeline) {
         Response response;
-        logger.info("addTimeline接口被调用");
         response = timelineService.addTimeline(request, timeline);
         return response;
     }
 
-    @RequestMapping("/getTimelineByPage")
+    @GetMapping("/getTimelineByPage")
     Response getTimelineByPage(HttpServletRequest request){
         Response response;
-        logger.info("getTimelineByPage接口被调用");
         response=timelineService.getTimelineByStart(request);
         return  response;
     }
