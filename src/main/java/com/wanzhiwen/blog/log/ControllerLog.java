@@ -37,13 +37,13 @@ public class ControllerLog {
         HttpServletRequest request = attributes.getRequest();
         HttpSession session = request.getSession();
         if (session.getAttribute("username") == null) {
-            log.info(" URL: " + request.getRequestURL().toString());
-            log.info(" ARGS：" + Arrays.toString(joinPoint.getArgs()));
+            log.info("URL: " + request.getRequestURL().toString());
+            log.info("ARGS：" + Arrays.toString(joinPoint.getArgs()));
         } else {
             String username = (String) session.getAttribute("username");
             log.info("USERNAME: "+username);
-            log.info(" URL: " + request.getRequestURL().toString());
-            log.info(" ARGS：" + Arrays.toString(joinPoint.getArgs()));
+            log.info("URL: " + request.getRequestURL().toString());
+            log.info("ARGS：" + Arrays.toString(joinPoint.getArgs()));
         }
     }
 
